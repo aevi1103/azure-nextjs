@@ -1,9 +1,11 @@
 import { useState, useCallback, useEffect } from "react";
 import { useUserInfo } from "../../lib/hooks";
+import { useRouter } from "next/router";
 
 const randomApi = `https://random-data-api.com/api/cannabis/random_cannabis?size=30`;
 
 export default function Cannabis({ cannabis }) {
+  const router = useRouter();
   const userInfo = useUserInfo();
   const [data, setData] = useState(cannabis);
   const [count, setCount] = useState(0);
@@ -12,10 +14,10 @@ export default function Cannabis({ cannabis }) {
     console.log({
       userInfo,
     });
-    //todo: store in a local storage
+    //todo: store in a local storage, or move in the layout component
     if (userInfo) return;
     router.push("/login");
-  }, [userInfo]);
+  }, [userInfo, router]);
 
   const getData = useCallback(async () => {
     const response = await fetch(randomApi);
