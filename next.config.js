@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
+
+const withOptimizedImages = require("next-optimized-images");
+
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    loader: "cloudinary",
-  },
 };
 
-module.exports = nextConfig;
+module.exports = withOptimizedImages({
+  ...nextConfig,
+});

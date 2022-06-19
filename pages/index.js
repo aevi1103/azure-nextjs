@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-import Image from "next/image";
+// import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -60,7 +61,15 @@ export default function Home() {
         >
           Powered by{" "}
           <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
+            <img
+              style={{
+                width: 72,
+                height: 16,
+              }}
+              alt="logo"
+              src={require("../public/vercel.svg")}
+            />
           </span>
         </a>
       </footer>
