@@ -15,8 +15,12 @@ export default function Cannabis({ cannabis }) {
       userInfo,
     });
     //todo: store in a local storage, or move in the layout component
-    if (userInfo) return;
-    router.push("/login");
+    if (userInfo) {
+      console.log("no redirect", userInfo);
+      return;
+    }
+    console.log("redirect to login", userInfo);
+    // router.push("/login");
   }, [userInfo, router]);
 
   const getData = useCallback(async () => {
