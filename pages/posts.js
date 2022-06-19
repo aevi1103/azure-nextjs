@@ -4,6 +4,7 @@ export default function Posts() {
   return (
     <div>
       <h1>Posts</h1>
+      <span>{}</span>
       <ul>
         <li>
           <Link href="/">
