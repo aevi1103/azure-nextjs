@@ -1,17 +1,20 @@
 import { useState, useCallback, useEffect } from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 const randomApi = `https://random-data-api.com/api/cannabis/random_cannabis?size=30`;
 
 export default function Cannabis({ cannabis, userInfo }) {
-  const router = useRouter();
+  // const router = useRouter();
   const [data, setData] = useState(cannabis);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (userInfo) return;
-    router.push("/login");
-  }, [userInfo, router]);
+    console.log({
+      userInfo,
+    });
+    // if (userInfo) return;
+    // router.push("/login");
+  }, [userInfo]);
 
   const getData = useCallback(async () => {
     const response = await fetch(randomApi);
