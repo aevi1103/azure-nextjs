@@ -51,7 +51,7 @@ export async function getStaticProps() {
       if (!userInfo) {
         return {
           data: [],
-          userInfo,
+          userInfo: null,
         };
       }
 
