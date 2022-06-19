@@ -68,7 +68,7 @@ export async function getStaticProps() {
   return {
     props: {
       cannabis: data,
-      user: userfromServer ?? null,
+      userfromServer: userfromServer ?? null,
     },
   };
 }
