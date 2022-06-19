@@ -12,8 +12,9 @@ export default function Cannabis({ cannabis }) {
     console.log({
       userInfo,
     });
-    // if (userInfo) return;
-    // router.push("/login");
+    //todo: store in a local storage
+    if (userInfo) return;
+    router.push("/login");
   }, [userInfo]);
 
   const getData = useCallback(async () => {
