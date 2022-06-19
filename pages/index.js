@@ -19,12 +19,12 @@ export default function Home() {
 
         <ul>
           <li>
-            <Link href="/posts">
+            <Link href="/mes/posts">
               <a>Posts</a>
             </Link>
           </li>
           <li>
-            <Link href="/cannabis">
+            <Link href="/mes/cannabis">
               <a>Cannabis</a>
             </Link>
           </li>
