@@ -4,11 +4,17 @@ import { useRouter } from "next/router";
 
 const randomApi = `https://random-data-api.com/api/cannabis/random_cannabis?size=30`;
 
-export default function Cannabis({ cannabis }) {
+export default function Cannabis({ cannabis, userfromServer }) {
   const router = useRouter();
   const userInfo = useUserInfo();
   const [data, setData] = useState(cannabis);
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log({
+      userfromServer,
+    });
+  }, [userfromServer]);
 
   useEffect(() => {
     console.log({
@@ -46,12 +52,23 @@ export default function Cannabis({ cannabis }) {
   );
 }
 
+export const getuserInfo = async () => {
+  const res = await fetch(
+    `https://icy-flower-0005dea0f.1.azurestaticapps.net/.auth/me`
+  );
+  const payload = await res.json();
+  const { clientPrincipal } = payload || {};
+  return clientPrincipal;
+};
+
 export async function getStaticProps() {
   const respose = await fetch(randomApi);
   const data = await respose.json();
+  const userfromServer = await getuserInfo();
   return {
     props: {
       cannabis: data,
+      user: userfromServer ?? null,
     },
   };
 }
