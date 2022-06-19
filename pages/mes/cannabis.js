@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useUserInfo } from "../../lib/hooks";
 
 const randomApi = `https://random-data-api.com/api/cannabis/random_cannabis?size=30`;
@@ -8,11 +8,9 @@ export default function Cannabis({ cannabis }) {
   const [data, setData] = useState(cannabis);
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    console.log({
-      userInfo,
-    });
-  }, [userInfo]);
+  console.log({
+    userInfo,
+  });
 
   const getData = useCallback(async () => {
     const response = await fetch(randomApi);
