@@ -1,10 +1,10 @@
 import { useState, useCallback, useEffect } from "react";
-// import { useRouter } from "next/router";
+import { useUserInfo } from "../../lib/hooks";
 
 const randomApi = `https://random-data-api.com/api/cannabis/random_cannabis?size=30`;
 
-export default function Cannabis({ cannabis, userInfo }) {
-  // const router = useRouter();
+export default function Cannabis({ cannabis }) {
+  const userInfo = useUserInfo();
   const [data, setData] = useState(cannabis);
   const [count, setCount] = useState(0);
 
@@ -39,33 +39,12 @@ export default function Cannabis({ cannabis, userInfo }) {
   );
 }
 
-const getuserInfo = async () => {
-  const res = await fetch(
-    `https://icy-flower-0005dea0f.1.azurestaticapps.net/.auth/me`
-  );
-  const payload = await res.json();
-  const { clientPrincipal } = payload || {};
-  return clientPrincipal;
-};
-
 export async function getStaticProps() {
-  const userInfo = await getuserInfo();
-
-  if (!userInfo) {
-    return {
-      props: {
-        cannabis: [],
-      },
-    };
-  }
-
   const respose = await fetch(randomApi);
-
   const data = await respose.json();
   return {
     props: {
       cannabis: data,
-      userInfo: userInfo,
     },
   };
 }
