@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 
+const randomApi = `https://random-data-api.com/api/cannabis/random_cannabis?size=30`;
+
 export default function Cannabis({ cannabis, userInfo }) {
   const router = useRouter();
   const [data, setData] = useState(cannabis);
@@ -12,9 +14,7 @@ export default function Cannabis({ cannabis, userInfo }) {
   }, [userInfo, router]);
 
   const getData = useCallback(async () => {
-    const response = await fetch(
-      `https://random-data-api.com/api/cannabis/random_cannabis?size=30`
-    );
+    const response = await fetch(randomApi);
     const records = await response.json();
     setData(records);
   }, []);
@@ -36,46 +36,33 @@ export default function Cannabis({ cannabis, userInfo }) {
   );
 }
 
+const getuserInfo = async () => {
+  const res = await fetch(
+    `https://icy-flower-0005dea0f.1.azurestaticapps.net/.auth/me`
+  );
+  const payload = await res.json();
+  const { clientPrincipal } = payload || {};
+  return clientPrincipal;
+};
+
 export async function getStaticProps() {
-  const getuserInfo = async () => {
-    const res = await fetch(`/.auth/me`);
-    const payload = await res.json();
-    const { clientPrincipal } = payload || {};
-    return clientPrincipal;
-  };
+  const userInfo = await getuserInfo();
 
-  const auth = async () => {
-    try {
-      const userInfo = await getuserInfo();
+  if (!userInfo) {
+    return {
+      props: {
+        cannabis: [],
+      },
+    };
+  }
 
-      if (!userInfo) {
-        return {
-          data: [],
-          userInfo: null,
-        };
-      }
+  const respose = await fetch(randomApi);
 
-      const respose = await fetch(
-        `https://random-data-api.com/api/cannabis/random_cannabis?size=30`
-      );
-
-      const data = await respose.json();
-
-      return {
-        data: data,
-        userInfo,
-      };
-    } catch (error) {
-      console.error({ ...error });
-    }
-  };
-
-  const { data, userInfo } = auth();
-
+  const data = await respose.json();
   return {
     props: {
       cannabis: data,
-      userInfo,
+      userInfo: userInfo,
     },
   };
 }
