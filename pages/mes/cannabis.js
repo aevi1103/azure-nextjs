@@ -8,10 +8,6 @@ export default function Cannabis({ cannabis }) {
   const [data, setData] = useState(cannabis);
   const [count, setCount] = useState(0);
 
-  console.log({
-    userInfo,
-  });
-
   const getData = useCallback(async () => {
     const response = await fetch(randomApi);
     const records = await response.json();
