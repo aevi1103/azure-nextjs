@@ -1,8 +1,16 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { getuserInfo } from "../../util/auth";
+import { useRouter } from "next/router";
 
-export default function Cannabis({ cannabis }) {
+export default function Cannabis({ cannabis, userInfo }) {
+  const router = useRouter();
   const [data, setData] = useState(cannabis);
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (userInfo) return;
+    router.push("/login");
+  }, [userInfo, router]);
 
   const getData = useCallback(async () => {
     const response = await fetch(
@@ -30,14 +38,38 @@ export default function Cannabis({ cannabis }) {
 }
 
 export async function getStaticProps() {
-  const respose = await fetch(
-    `https://random-data-api.com/api/cannabis/random_cannabis?size=30`
-  );
-  const data = await respose.json();
+  const auth = async () => {
+    try {
+      const userInfo = await getuserInfo();
+
+      if (!userInfo) {
+        return {
+          data: [],
+          userInfo,
+        };
+      }
+
+      const respose = await fetch(
+        `https://random-data-api.com/api/cannabis/random_cannabis?size=30`
+      );
+
+      const data = await respose.json();
+
+      return {
+        data: data,
+        userInfo,
+      };
+    } catch (error) {
+      console.error({ ...error });
+    }
+  };
+
+  const { data, userInfo } = auth();
 
   return {
     props: {
       cannabis: data,
+      userInfo,
     },
   };
 }
