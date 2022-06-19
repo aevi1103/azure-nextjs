@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from "react";
-import { getuserInfo } from "../../util/auth";
 import { useRouter } from "next/router";
 
 export default function Cannabis({ cannabis, userInfo }) {
@@ -38,6 +37,13 @@ export default function Cannabis({ cannabis, userInfo }) {
 }
 
 export async function getStaticProps() {
+  const getuserInfo = async () => {
+    const res = await fetch(`/.auth/me`);
+    const payload = await res.json();
+    const { clientPrincipal } = payload || {};
+    return clientPrincipal;
+  };
+
   const auth = async () => {
     try {
       const userInfo = await getuserInfo();
