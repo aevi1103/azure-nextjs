@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-// import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -16,6 +16,14 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <ul>
+          <li>
+            <Link href="/posts">
+              <a>Posts</a>
+            </Link>
+          </li>
+        </ul>
 
         <p className={styles.description}>
           Get started by editing{" "}
