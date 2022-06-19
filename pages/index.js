@@ -68,7 +68,7 @@ export default function Home() {
                 height: 16,
               }}
               alt="logo"
-              src={require("../public/vercel.svg")}
+              src="/vercel.svg"
             />
           </span>
         </a>

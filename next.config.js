@@ -6,6 +6,4 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-module.exports = withOptimizedImages({
-  ...nextConfig,
-});
+module.exports = nextConfig;

@@ -10,8 +10,6 @@
     "export": "next export"
   },
   "dependencies": {
-    "imagemin-optipng": "^8.0.0",
-    "imagemin-svgo": "^10.0.1",
     "next": "12.1.6",
     "next-optimized-images": "^2.6.2",
     "react": "18.2.0",
