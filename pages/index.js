@@ -23,6 +23,11 @@ export default function Home() {
               <a>Posts</a>
             </Link>
           </li>
+          <li>
+            <Link href="/cannabis">
+              <a>Cannabis</a>
+            </Link>
+          </li>
         </ul>
 
         <p className={styles.description}>
