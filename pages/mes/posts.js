@@ -14,7 +14,7 @@ export default function Posts() {
   return (
     <div>
       <h1>Posts</h1>
-      <h1>{azureFuncData?.text ?? "no data yet"}</h1>
+      <h1>{azureFuncData ?? "no data yet"}</h1>
       <ul>
         <li>
           <Link href="/">
